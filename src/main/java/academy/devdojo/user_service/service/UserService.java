@@ -32,8 +32,8 @@ public class UserService {
     }
 
     public void update(User user) {
-        var userToUpdate = findByIdOrThrowNotFound(user.getId());
-        repository.update(userToUpdate);
+        findByIdOrThrowNotFound(user.getId());
+        repository.update(user);
     }
 
     public Long getIdToNewSavedUser() {
