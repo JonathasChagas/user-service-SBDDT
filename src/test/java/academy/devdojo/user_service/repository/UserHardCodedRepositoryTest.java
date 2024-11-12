@@ -68,7 +68,7 @@ class UserHardCodedRepositoryTest {
     @Test
     @DisplayName("findByName returns a list of users when found")
     @Order(4)
-    public void findByName_ReturnsProducersInList_WhenNameIsFound() {
+    public void findByName_ReturnsUsersInList_WhenNameIsFound() {
         BDDMockito.when(userData.getUsers()).thenReturn(usersList);
 
         var expectedUser = usersList.getFirst();
@@ -80,19 +80,22 @@ class UserHardCodedRepositoryTest {
     @Test
     @DisplayName("save creates a user")
     @Order(5)
-    public void save_SaveProducer_WhenSuccessful() {
+    public void save_SaveUser_WhenSuccessful() {
         BDDMockito.when(userData.getUsers()).thenReturn(usersList);
 
-        var userToSave = User.builder().firstName("Maurício").lastName("Gomes").email("mauriciogomes@email.com").build();
+        var userToSave = User.builder().id(7L).firstName("Maurício").lastName("Gomes").email("mauriciogomes@email.com").build();
         var savedUser = repository.save(userToSave);
 
-        Assertions.assertThat(savedUser).isNotNull().isEqualTo(userToSave);
+        Assertions.assertThat(savedUser).isNotNull().isEqualTo(userToSave).hasNoNullFieldsOrProperties();
+
+        var producerSavedOptional = repository.findById(savedUser.getId());
+        Assertions.assertThat(producerSavedOptional).isPresent().contains(userToSave);
     }
 
     @Test
     @DisplayName("delete removes a user")
     @Order(6)
-    public void delete_RemoveUroducer_WhenSuccessful() {
+    public void delete_RemoveUser_WhenSuccessful() {
         BDDMockito.when(userData.getUsers()).thenReturn(usersList);
 
         var userToDelete = usersList.getFirst();
