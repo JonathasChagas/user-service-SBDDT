@@ -1,5 +1,6 @@
 package academy.devdojo.user_service.repository;
 
+import academy.devdojo.user_service.commons.UserUtils;
 import academy.devdojo.user_service.domain.User;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.*;
@@ -9,7 +10,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
@@ -19,23 +19,19 @@ class UserHardCodedRepositoryTest {
     private UserHardCodedRepository repository;
     @Mock
     private UserData userData;
-    private final List<User> usersList = new ArrayList<>();
+    private List<User> usersList;
+    @InjectMocks
+    private UserUtils userUtils;
 
     @BeforeEach
     void init() {
-        var ana = User.builder().id(1L).firstName("Ana").lastName("Oliveira").email("anaoliveira@email.com").build();
-        var marcos = User.builder().id(2L).firstName("Marcos").lastName("Ferreira").email("marcosferreira@email.com").build();
-        var julia = User.builder().id(3L).firstName("Julia").lastName("Gomes").email("juliagomes@email.com").build();
-        var paulo = User.builder().id(4L).firstName("Paulo").lastName("Lima").email("paulolima@email.com").build();
-        var camila = User.builder().id(5L).firstName("Camila").lastName("Costa").email("camilacosta@email.com").build();
-        var roberto = User.builder().id(6L).firstName("Roberto").lastName("Alves").email("robertoalves@email.com").build();
-        usersList.addAll(List.of(ana, marcos, julia, paulo, camila, roberto));
+        usersList = userUtils.newUserList();
     }
 
     @Test
     @DisplayName("findAll retuns all users when successful")
     @Order(1)
-    public void findAll_ReturnsUsersInList_WhenSuccessful() {
+    void findAll_ReturnsUsersInList_WhenSuccessful() {
         BDDMockito.when(userData.getUsers()).thenReturn(usersList);
 
         var users = repository.findAll();
@@ -46,7 +42,7 @@ class UserHardCodedRepositoryTest {
     @Test
     @DisplayName("findById returns user when found")
     @Order(2)
-    public void findById_ReturnsUser_WhenSuccessful() {
+    void findById_ReturnsUser_WhenSuccessful() {
         BDDMockito.when(userData.getUsers()).thenReturn(usersList);
 
         var expectedUser = usersList.getFirst();
@@ -58,7 +54,7 @@ class UserHardCodedRepositoryTest {
     @Test
     @DisplayName("findByName returns a empty list when name is null")
     @Order(3)
-    public void findByName_ReturnsEmptyList_WhenNameIsNull() {
+    void findByName_ReturnsEmptyList_WhenNameIsNull() {
         BDDMockito.when(userData.getUsers()).thenReturn(usersList);
 
         var users = repository.findByName(null);
@@ -68,7 +64,7 @@ class UserHardCodedRepositoryTest {
     @Test
     @DisplayName("findByName returns a list of users when found")
     @Order(4)
-    public void findByName_ReturnsUsersInList_WhenNameIsFound() {
+    void findByName_ReturnsUsersInList_WhenNameIsFound() {
         BDDMockito.when(userData.getUsers()).thenReturn(usersList);
 
         var expectedUser = usersList.getFirst();
@@ -80,10 +76,10 @@ class UserHardCodedRepositoryTest {
     @Test
     @DisplayName("save creates a user")
     @Order(5)
-    public void save_SaveUser_WhenSuccessful() {
+    void save_SaveUser_WhenSuccessful() {
         BDDMockito.when(userData.getUsers()).thenReturn(usersList);
 
-        var userToSave = User.builder().id(7L).firstName("Maurício").lastName("Gomes").email("mauriciogomes@email.com").build();
+        var userToSave = userUtils.newSavedUser();
         var savedUser = repository.save(userToSave);
 
         Assertions.assertThat(savedUser).isNotNull().isEqualTo(userToSave).hasNoNullFieldsOrProperties();
@@ -95,7 +91,7 @@ class UserHardCodedRepositoryTest {
     @Test
     @DisplayName("delete removes a user")
     @Order(6)
-    public void delete_RemoveUser_WhenSuccessful() {
+    void delete_RemoveUser_WhenSuccessful() {
         BDDMockito.when(userData.getUsers()).thenReturn(usersList);
 
         var userToDelete = usersList.getFirst();
@@ -107,11 +103,11 @@ class UserHardCodedRepositoryTest {
     @Test
     @DisplayName("update updates a user")
     @Order(7)
-    public void update_UpdateUser_WhenSuccessful() {
+    void update_UpdateUser_WhenSuccessful() {
         BDDMockito.when(userData.getUsers()).thenReturn(usersList);
 
         var userToUpdate = usersList.getFirst();
-        userToUpdate.setEmail("designerana@email.com");
+        userToUpdate.setEmail(userUtils.newEmailUser());
 
         repository.update(userToUpdate);
 

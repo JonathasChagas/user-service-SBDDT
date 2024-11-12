@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Ana",
+    "second name": "Oliveira",
+    "email": "anaoliveira@email.com"
+  },
+  {
+    "name": "Marcos",
+    "second name": "Ferreira",
+    "email": "marcosferreira@email.com"
+  },
+  {
+    "name": "Julia",
+    "second name": "Gomes",
+    "email": "juliagomes@email.com"
+  },
+  {
+    "name": "Paulo",
+    "second name": "Lima",
+    "email": "paulolima@email.com"
+  },
+  {
+    "name": "Camila",
+    "second name": "Costa",
+    "email": "camilacosta@email.com"
+  },
+  {
+    "name": "Roberto",
+    "second name": "Alves",
+    "email": "robertoalves@email.com"
+  }
+]

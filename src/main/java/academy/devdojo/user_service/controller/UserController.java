@@ -28,8 +28,8 @@ public class UserController {
         log.info("Request received to list all users, param: '{}'", name);
         var users = service.findAll(name);
 
-        var animeGetResponse = mapper.toUserGetResponseList(users);
-        return ResponseEntity.ok(animeGetResponse);
+        var userGetResponse = mapper.toUserGetResponseList(users);
+        return ResponseEntity.ok(userGetResponse);
     }
 
     @GetMapping("/{id}")
