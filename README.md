@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="https://img.youtube.com/vi/7HU2PMsKmGY/maxresdefault.jpg" width="50%" alt="Project Name">
-</p>
-
 # 🙍‍♂️ API de Usuário
 
 Repositório para o exercício de um serviço para gerir os dados de usuários do curso Spring Boot Direto das Trincheiras do DevDojo. Ela oferece funcionalidades para consulta e gerenciamento de dados de usuários, incluindo id, nome, sobrenome e email
