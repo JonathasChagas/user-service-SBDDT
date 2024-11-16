@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: anime-service
+  threads:
+    virtual:
+      enabled: true
+
+logging:
+  level:
+    academy.devdojo: debug
+
+server:
+  servlet:
+    context-path: /
+  error:
+    include-stacktrace: on_param
+  tomcat:
+    threads:
+      max: 20
+  port: 8090

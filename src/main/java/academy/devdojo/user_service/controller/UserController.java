@@ -6,6 +6,7 @@ import academy.devdojo.user_service.request.UserPutRequest;
 import academy.devdojo.user_service.response.UserGetResponse;
 import academy.devdojo.user_service.response.UserPostResponse;
 import academy.devdojo.user_service.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -43,7 +44,7 @@ public class UserController {
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserPostResponse> save(@RequestBody UserPostRequest request) {
+    public ResponseEntity<UserPostResponse> save(@RequestBody @Valid UserPostRequest request) {
         log.info("Request received to save user: '{}'", request);
 
         var id = service.getIdToNewSavedUser();
@@ -65,7 +66,7 @@ public class UserController {
     }
 
     @PutMapping
-    public ResponseEntity<Void> update(@RequestBody UserPutRequest request) {
+    public ResponseEntity<Void> update(@RequestBody @Valid UserPutRequest request) {
         log.info("Request received to update user: '{}'", request);
 
         var userToUpdate = mapper.toUser(request);
