@@ -1,6 +1,6 @@
 spring:
   application:
-    name: anime-service
+    name: user-service
   threads:
     virtual:
       enabled: true
