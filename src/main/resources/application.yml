@@ -1,6 +1,15 @@
 spring:
+  config:
+    import: optional:classpath:.env[.properties]
   application:
     name: user-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/user_service?useTimezone=true&serverTimezone=UTC&createDatabaseIfNotExist=true
+    username: ${ENV_ROOT_USER:root}
+    password: ${ENV_ROOT_PASSWORD:devdojo}
+  jpa:
+    show-sql: true
+    #Não coloque true em produção
   threads:
     virtual:
       enabled: true
