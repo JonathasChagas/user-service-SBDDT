@@ -2,7 +2,7 @@ package academy.devdojo.user_service.service;
 
 import academy.devdojo.exception.NotFoundException;
 import academy.devdojo.user_service.domain.User;
-import academy.devdojo.user_service.repository.UserHardCodedRepository;
+import academy.devdojo.user_service.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,10 +11,10 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class UserService {
-    private final UserHardCodedRepository repository;
+    private final UserRepository repository;
 
     public List<User> findAll(String name) {
-        return name == null ? repository.findAll() : repository.findByName(name);
+        return name == null ? repository.findAll() : repository.findByFirstNameIgnoreCase(name);
     }
 
     public User findByIdOrThrowNotFound(Long id) {
@@ -32,10 +32,6 @@ public class UserService {
 
     public void update(User user) {
         findByIdOrThrowNotFound(user.getId());
-        repository.update(user);
-    }
-
-    public Long getIdToNewSavedUser() {
-        return repository.findAll().stream().mapToLong(User::getId).max().orElseThrow(java.util.NoSuchElementException::new) + 1;
+        repository.save(user);
     }
 }

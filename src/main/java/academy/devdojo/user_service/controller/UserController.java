@@ -47,9 +47,7 @@ public class UserController {
     public ResponseEntity<UserPostResponse> save(@RequestBody @Valid UserPostRequest request) {
         log.info("Request received to save user: '{}'", request);
 
-        var id = service.getIdToNewSavedUser();
-
-        var userToSave = mapper.toUser(request, id);
+        var userToSave = mapper.toUser(request);
         service.save(userToSave);
 
         var userPostResponse = mapper.toUserPostResponse(userToSave);
