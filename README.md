@@ -14,13 +14,13 @@ Repositório para o exercício de um serviço para gerir os dados de usuários d
 - [Maven](https://github.com/)
 - [Git 2](https://github.com)
 
-<h3>Clonando o repositório</h3>
+<h3>🐱‍👤 Clonando o repositório</h3>
 
 ```bash
 git clone https://github.com/JonathasChagas/user-service-SBDDT
 ```
 
-<h3>Inicializando</h3>
+<h3>🐱‍💻 Inicializando</h3>
 
 Dentro do diretório
 
@@ -29,7 +29,7 @@ mvn clean install
 mvn spring-boot:run
 ```
 
-<h3>Executando os testes</h3>
+<h3>🧪 Executando os testes</h3>
 
 Dentro do diretório
 
@@ -51,7 +51,7 @@ mvn test
 
 <h3 id="get-users-detail">GET /v1/users</h3>
 
-**RESPONSE**
+**📦 RESPONSE**
 ```json
 {
   "name": "William",
@@ -61,7 +61,7 @@ mvn test
 ```
 <h3 id="post-users-detail">POST /v1/users</h3>
 
-**REQUEST**
+**📝 REQUEST**
 ```json
 {
   "name": "Jônathas",
@@ -70,7 +70,7 @@ mvn test
 }
 ```
 
-**RESPONSE**
+**📦 RESPONSE**
 ```json
 {
   "id": "7", 
@@ -82,7 +82,7 @@ mvn test
 
 <h3 id="put-users-detail">PUT /v1/users</h3>
 
-**REQUEST**
+**📝 REQUEST**
 ```json
 {       
   "id": 7,
