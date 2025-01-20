@@ -1,12 +1,11 @@
 package academy.devdojo.user_service.service;
 
+import academy.devdojo.exception.EmailExistsException;
 import academy.devdojo.exception.NotFoundException;
 import academy.devdojo.user_service.domain.User;
 import academy.devdojo.user_service.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -22,6 +21,7 @@ public class UserService {
     public User findByIdOrThrowNotFound(Long id) {
         return repository.findById(id).orElseThrow(() -> new NotFoundException("User not Found"));
     }
+
 
     public User save(User userToSave) {
         assertEmailDoesNotExist(userToSave.getEmail());
@@ -44,14 +44,14 @@ public class UserService {
     }
 
     public void assertEmailDoesNotExist(String email) {
-        repository.findByEmail(email).ifPresent(this::throwEmailExistsException);
+        repository.findByEmail(email).ifPresent(s -> {
+            throw new EmailExistsException(email);
+        });
     }
 
     public void assertEmailDoesNotExist(String email, Long id) {
-        repository.findByEmailAndIdNot(email, id).ifPresent(this::throwEmailExistsException);
-    }
-
-    private void throwEmailExistsException(User user) {
-        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "E-mail %s already exists".formatted(user.getEmail()));
+        repository.findByEmailAndIdNot(email, id).ifPresent(s -> {
+            throw new EmailExistsException(email);
+        });
     }
 }

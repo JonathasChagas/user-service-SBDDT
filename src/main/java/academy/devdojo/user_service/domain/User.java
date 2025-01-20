@@ -3,6 +3,7 @@ package academy.devdojo.user_service.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
+@With
 @Getter
 @Setter
 @Builder
