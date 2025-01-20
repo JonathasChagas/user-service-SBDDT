@@ -143,7 +143,10 @@ class UserControllerTest {
     @DisplayName("PUT v1/users updates a user")
     @Order(7)
     void update_UpdateUser_WhenSucccessful() throws Exception {
-        BDDMockito.when(repository.findById(1L)).thenReturn(Optional.ofNullable(usersList.getFirst()));
+        var id = 1L;
+
+        BDDMockito.when(repository.findById(id)).thenReturn(Optional.of(usersList.getFirst()));
+
         var request = fileUtils.readResourceFile("user/put-request-user-200.json");
 
         mockMvc.perform(MockMvcRequestBuilders
@@ -175,9 +178,11 @@ class UserControllerTest {
     @DisplayName("DEL v1/users/1 removes a user")
     @Order(9)
     void delete_RemoveUser_WhenSuccessful() throws Exception {
-        BDDMockito.when(repository.findById(1L)).thenReturn(Optional.ofNullable(usersList.getFirst()));
+        var id = 1L;
 
-        mockMvc.perform(MockMvcRequestBuilders.delete(URL + "/{id}", 1L)
+        BDDMockito.when(repository.findById(id)).thenReturn(Optional.ofNullable(usersList.getFirst()));
+
+        mockMvc.perform(MockMvcRequestBuilders.delete(URL + "/{id}", id)
                 )
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isNoContent());

@@ -20,7 +20,12 @@ public class UserUtils {
     }
 
     public User newSavedUser() {
-        return User.builder().id(7L).firstName("José").lastName("Campos").email("josecampos@email.com").build();
+        return User.builder()
+                .id(7L)
+                .firstName("José")
+                .lastName("Campos")
+                .email("josecampos@email.com")
+                .build();
     }
 
     public String newEmailUser() {
